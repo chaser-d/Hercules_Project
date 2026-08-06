@@ -1,0 +1,8 @@
+hercules_mrp:
+  outputs:
+    dev:
+      type: duckdb
+      path: hercules_mrp.db
+      database: hercules_mrp
+      schema: main
+  target: dev

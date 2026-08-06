@@ -1,0 +1,11 @@
+name: 'hercules_mrp_analytics'
+version: '1.0.0'
+profile: 'hercules_mrp'
+model-paths: ['models']
+clean-targets: ['target', 'dbt_packages']
+models:
+  hercules_mrp_analytics:
+    staging:
+      materialized: view
+    marts:
+      materialized: table

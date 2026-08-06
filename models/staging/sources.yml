@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: infor_m3
+    database: hercules_mrp
+    schema: main
+    tables:
+      - name: raw_infor_item_master
+      - name: raw_infor_purchase_orders
+      - name: raw_infor_supplier_governance

@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: stg_items
+    description: 'Silver-layer cleansed Infor M3 item master. Standardizes SKU keys and resolves negative safety stock inventory anomalies.'
+    columns:
+       - name: item_id
+         description: 'Primary structural SKU key for corporate parts inventory. Must be unique and non-null.'
+         tests:
+           - unique
+           - not_null
+       - name: safety_stock_qty
+         description: 'Governed minimum warehouse inventory threshold. Validated to ensure zero negative quantities pass into MRP loops.'
+         tests:
+           - not_null
+
+  - name: stg_purchase_orders
+    description: 'Silver-layer purchase order ledger tracking quantitative supplier delivery delay metrics.'
+    columns:
+       - name: po_id
+         description: 'Primary transactional system key for tracking procurement orders.'
+         tests:
+           - unique
+           - not_null
+       - name: delivery_delay_days
+         description: 'Calculated variance between promised and actual arrival. Positive integers pinpoint supply chain delivery constraints.'
+         tests:
+           - not_null
+
+  - name: stg_suppliers
+    description: 'Silver-layer supplier tracking ledger enforcing uniform corporate vendor statuses.'
+    columns:
+       - name: supplier_id
+         description: 'Primary structural key for vendor accounts.'
+         tests:
+           - unique
+           - not_null
+       - name: supplier_status
+         description: 'Governed regulatory classification. Restricted to strict compliance categories.'
+         tests:
+           - accepted_values:
+               values: ['ACTIVE', 'PROBATION', 'DISQUALIFIED']
